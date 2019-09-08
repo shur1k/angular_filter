@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'search-component',
   templateUrl: './search.component.html',
@@ -11,21 +12,43 @@ import { EventEmitter } from '@angular/core';
 export class SearchComponent implements OnInit {
   @Output('filterText') search = new EventEmitter<string>();
   searchForm: FormGroup;
+  timerId = null; 
+
   constructor(private fb: FormBuilder, public service: DataService) { }
 
   ngOnInit() {
 
     // add corresponding validators
     this.searchForm = this.fb.group({
-      'searchCountry': [null]
+      'searchCountry': [null, Validators.required]
     });
 
-    // write a function that calls changeCountryName upon value change in the form
+    // document.getElementById('inputSearch').addEventListener('keyup', this.debounce((k) => {
+    //   console.log(k);
+    // }, 1500));
+
+    // write a function that calls changeCountryName upon value change in the form  
+    this.searchForm.get('searchCountry').valueChanges.subscribe(value => {
+      // if (this.timerId) {
+      //   clearTimeout(this.timerId);
+      // };
+      // this.timerId = setTimeout(() => {
+        console.log(this.searchForm.get('searchCountry').value);
+        this.service.changeCountryName(this.searchForm.get('searchCountry').value as string);  
+      //}, 500);  
+    })
   }
 
-  onSearch() {
-    this.search.emit(this.searchForm.get('searchCountry').value);
-    //console.log(this.searchForm.get('searchCountry').value);
-  }
+  // private debounce = (func, timer: number) => {
+  //   let timerId = null;
+  //   return (...args) => {
+  //     if(timerId) {
+  //       clearTimeout(timerId);
+  //     }
+  //     timerId = setTimeout(() => {
+  //       func(...args);
+  //     }, timer);
+  //   }
+  // }
 
 }

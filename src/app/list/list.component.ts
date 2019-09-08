@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Input } from '@angular/core';
 
 @Component({
   selector: 'list-component',
@@ -10,7 +9,7 @@ import { Input } from '@angular/core';
 export class ListComponent implements OnInit {
 
   // this array stores the string entered in te search box
-  @Input() searchText: string;
+  searchText: string;
 
   // this array stores the list of countries that match the input string of the search box
   countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua & Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas"
@@ -30,15 +29,27 @@ export class ListComponent implements OnInit {
     , "Yemen", "Zambia", "Zimbabwe"]
 
     // add the countries to be shown to this array
-  searchCountriesList: string[];
+  searchCountriesList: string[] = this.countries.slice();
 
   constructor(private service: DataService) { }
 
   ngOnInit() {
     this.service.currentCountryName.subscribe(name => {
       // complete this function which searches the countries using regex and adds them to searchCountriesList
+      this.searchText = name;
+      // this.countries.forEach(country => {
+      //   if(country.includes(name)) this.searchCountriesList.push(country);
+      // });
+      let regEx = new RegExp("^"+name);
+      this.searchCountriesList = this.searchCountriesList.filter(country => {
+        if(regEx.test(country)) return country;
+      });
     });
 
+  }
+
+  onClick() {
+    this.countries.push("testcountry");
   }
 
 }

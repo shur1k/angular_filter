@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 76.0.3809 (Windows 10.0.0)" package="unit" timestamp="2019-09-08T17:37:23" id="0" hostname="DESKTOP-E8OP8E6" tests="5" errors="0" failures="0" time="0.346">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/76.0.3809.132 Safari/537.36"/>
+  </properties>
+  <testcase name="DataService should use an observable to add values" time="0.039" classname="unit.DataService"/>
+  <testcase name="ListComponent should enlist all the countries" time="0.129" classname="unit.ListComponent"/>
+  <testcase name="ListComponent should filter the countries" time="0.071" classname="unit.ListComponent"/>
+  <testcase name="SearchComponent should not be valid if search box is empty" time="0.059" classname="unit.SearchComponent"/>
+  <testcase name="SearchComponent should trigger the changeCountryName routine" time="0.048" classname="unit.SearchComponent"/>
+  <system-out>
+    <![CDATA[HeadlessChrome 76.0.3809 (Windows 10.0.0) LOG: ''
+,HeadlessChrome 76.0.3809 (Windows 10.0.0) LOG: 'Uk'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

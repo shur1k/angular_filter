@@ -1,3 +1,4 @@
+import { FilterPipe } from './../filter/filter.pipe';
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListComponent } from './list.component';
@@ -8,7 +9,8 @@ describe('ListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ListComponent
+        ListComponent,
+        FilterPipe
       ],
       imports: [ReactiveFormsModule],
       providers: [DataService]
@@ -41,7 +43,7 @@ describe('ListComponent', () => {
     let list = fixture.componentInstance;
     fixture.detectChanges();
     list.ngOnInit();
-    service.changeCountryName("ar");
+    service.changeCountryName("Ar");
     expect(list.searchCountriesList).toEqual(['Argentina', 'Armenia', 'Aruba']);
   }));
 

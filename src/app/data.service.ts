@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class DataService {
@@ -11,5 +12,6 @@ export class DataService {
 
   changeCountryName(country: string) {
     // add data to an observable
+    this.countryNameSource.next(country);
   }
 }

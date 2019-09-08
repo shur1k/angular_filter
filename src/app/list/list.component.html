@@ -1,5 +1,8 @@
+<br>
+<button class="btn-primary b" (click)="onClick()">Add Country</button>
+<hr>
 <ol >
-  <li *ngFor="let country of countries | filter : searchText : countries">
+  <li *ngFor="let country of countries | filter : searchText">
     {{country}}
   </li>
 </ol>
