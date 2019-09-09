@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'list-component',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
 
   // this array stores the string entered in te search box
   searchText: string;
@@ -30,16 +31,15 @@ export class ListComponent implements OnInit {
 
     // add the countries to be shown to this array
   searchCountriesList: string[] = this.countries.slice();
+  curCon: Subscription;
 
   constructor(private service: DataService) { }
 
   ngOnInit() {
-    this.service.currentCountryName.subscribe(name => {
+    this.curCon = this.service.currentCountryName.subscribe(name => {
       // complete this function which searches the countries using regex and adds them to searchCountriesList
       this.searchText = name;
-      // this.countries.forEach(country => {
-      //   if(country.includes(name)) this.searchCountriesList.push(country);
-      // });
+
       let regEx = new RegExp("^"+name);
       this.searchCountriesList = this.searchCountriesList.filter(country => {
         if(regEx.test(country)) return country;
@@ -50,6 +50,10 @@ export class ListComponent implements OnInit {
 
   onClick() {
     this.countries.push("testcountry");
+  }
+
+  ngOnDestroy() {
+    this.curCon.unsubscribe();
   }
 
 }
